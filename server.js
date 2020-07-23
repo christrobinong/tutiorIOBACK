@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const {cors, corsConfig} = require("./middleware/cors");
-const user = require("./routes/user");
+const user = require("./Routes/user");
 const InitiateMongoServer = require("./config/db");
 const morgan = require("morgan");
 
