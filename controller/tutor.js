@@ -294,20 +294,23 @@ exports.getTutorsProfile = async(req, res) => {
 
 exports.findTutor = async(req, res, next) => {
     try {
-        console.log("req.body: " + JSON.stringify(req.body, null, 2) );
+        // console.log("req.body: " + JSON.stringify(req.body, null, 2) );
         let searchName = req.body.tutorName;
-        console.log("SEARCH: " + searchName);
+        // console.log("SEARCH1: " + searchName);
+
         if (!searchName) {
             res.status(400).json({message: "No user found"})
         }
-
+        // console.log("SEARCH2: " + searchName);
         let fullName = searchName.split(' ')
+        // console.log("fullName: " + fullName);
         let ffName = fullName[0]
+        // console.log("fullName: " + fullName);
         let llName = fullName[fullName.length - 1]
         let allTutor = await Tutor.find();
         let tutorList = []
-        console.log("fullName: " + fullName);
-        console.log("lastName: " + lastName);
+        // console.log("fullName: " + ffName);
+        // console.log("LENGTH: " + fullName.length);
 
         if (fullName.length > 1) {
             let firstName = ffName.toLowerCase()
@@ -336,7 +339,9 @@ exports.findTutor = async(req, res, next) => {
             }
 
         } else {
+            // console.log("FNAME: " + ffName);
             let firstName = ffName.toLowerCase()
+            // console.log("loweredcase: " + firstName);
             let fName = firstName[0].toUpperCase() + firstName.substring(1)
             // console.log("FNAME: " + fName);
             // console.log("ALL TUTOR: " + allTutor);
@@ -355,7 +360,7 @@ exports.findTutor = async(req, res, next) => {
             }
         }
         
-        console.log("TUTORS: " + tutorList)
+        // console.log("TUTORS: " + tutorList)
         req.teachingTutors = tutorList
         next();
     } catch (err) {
