@@ -67,8 +67,9 @@ exports.countAverage = async(req, res) => {
             let rating = await findRating(tutor.ratings[i])
             sum += rating.rate
         }
-
-        tutor.totalRating = sum / tutor.ratings.length
+        let temp = sum / tutor.ratings.length
+        tutor.totalRating = Math.round((temp + Number.EPSILON) * 100) / 100
+        
 
         await tutor.save();
 
