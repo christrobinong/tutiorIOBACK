@@ -44,10 +44,12 @@ exports.signUp = async (req, res, next) => {
 
 
       let fN = firstName.toLowerCase()
-      let fName = fN[0].toUpperCase() + string.substring(1)
+      console.log("firstName " + fN);
+      let fName = fN[0].toUpperCase() + fN.substring(1)
       
       let lN = lastName.toLowerCase()
-      let lName = lN[0].toUpperCase() + string.substring(1)
+      console.log("lastNAme " + lN);
+      let lName = lN[0].toUpperCase() + lN.substring(1)
 
       let user = await User.findOne({
             email: email
@@ -60,21 +62,22 @@ exports.signUp = async (req, res, next) => {
       } 
 
       user = new User({
-          fName,
-          lName,
-          email,
-          password
+          firstName: fName,
+          lastName: lName,
+          email: email,
+          password: password
       });
 
       let profile = new Profile({
-          userID: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName
+        userID: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName
       }); 
 
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
-        
+      
+      
       await user.save();
       await profile.save();
 
